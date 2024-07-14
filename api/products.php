@@ -165,7 +165,7 @@
                         'product_description'=>$product_description,
                         'product_base_price'=>$product_base_price,
                         'product_category'=>$product_category,
-                        'product_items'=> $product_items,
+                        'product_items'=> json_decode($product_items),
                         'product_photo'=>$product_photo,
                         'product_photo_thumb'=>$product_photo_thumb,
                         'product_status'=>$product_status

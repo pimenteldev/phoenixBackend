@@ -13,6 +13,8 @@
         public $user_psw;
         public $user_name;
         public $user_photo;
+        
+        public $user_rol;
 
         // Db connection
         public function __construct($db){
@@ -23,7 +25,8 @@
             $sqlQuery = "SELECT
                         user_id,
                         user_name, 
-                        user_photo
+                        user_photo,
+                        user_rol
                         FROM
                         ". $this->db_table ."
                         WHERE 
@@ -47,4 +50,3 @@
         }
 
     }
-?>

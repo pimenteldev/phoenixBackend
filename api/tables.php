@@ -73,7 +73,7 @@
                         'table_active'=>$table_active
                     );
                     
-                    $arrBody[] = $table;
+                    $arrBody["tables"][] = $table;
                 }
             }else{
                 $arrBody = [];
@@ -107,11 +107,18 @@
                     $msg["modify"] = false;
                     $msg["message"] = "La Mesa no existe";
                 }else{
-                    if($tablesInstance->updateTable()){
-                        $msg["modify"] = true;
-                    } else {
+                    $stmtTablesSingle = $tablesInstance->getSingleTableByIdIsDiferentAndName();
+                    $tablesCountSingle = $stmtTablesSingle->rowCount();
+                    if($tablesCountSingle === 0 ){
+                        if($tablesInstance->updateTable()){
+                            $msg["modify"] = true;
+                        } else {
+                            $msg["modify"] = false;
+                            $msg["message"] = "Error al registrar una Nueva Mesa";
+                        }
+                    }else{
                         $msg["modify"] = false;
-                        $msg["message"] = "Error al registrar una Nueva Mesa";
+                        $msg["message"] = "La Mesa ya existe en el sistema";
                     }
                 }
             }else{

@@ -92,17 +92,37 @@
             return false;
         }
 
+        public function getSingleTableByIdIsDiferentAndName(){
+            $sqlQuery = "SELECT
+                        table_id, 
+                        table_name, 
+                        table_status,
+                        table_active
+                        FROM
+                        ". $this->db_table." 
+                        WHERE 
+                        table_id != :table_id AND table_name = :table_name";
+
+            $stmt = $this->conn->prepare($sqlQuery);
+            $stmt->bindParam(":table_id", $this->table_id);
+            $stmt->bindParam(":table_name", $this->table_name);
+
+            $stmt->execute();
+            return $stmt;
+        }
+
         public function updateTable(){
+
             $sqlQuery = "UPDATE
                         ". $this->db_table ."
                         SET
                         table_name = :table_name, 
                         table_status = :table_status
                         WHERE 
-                        table_id = :table_id ";
+                        table_id = :table_id";
 
             $stmt = $this->conn->prepare($sqlQuery);
-
+            
             $this->table_id=htmlspecialchars(strip_tags($this->table_id));
             $this->table_name=htmlspecialchars(strip_tags($this->table_name));
             $this->table_status=htmlspecialchars(strip_tags($this->table_status));
